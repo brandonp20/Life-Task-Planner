@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life's Task Planner</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dark-mode-toggle">
+        <button id="darkModeToggle">🌓</button>
+    </div>
+
+    <div class="container">
+        <div class="life-task-container">
+            <h1>Life's Task</h1>
+            <input type="text" class="life-task-input" placeholder="Enter your life's task">
+        </div>
+
+        <div class="main-content">
+            <div class="left-side">
+                <div class="planner-section">
+                    <div class="navigation">
+                        <button id="prevWeek">◀</button>
+                        <h2 id="weekLabel">Weekly Plan</h2>
+                        <button id="nextWeek">▶</button>
+                    </div>
+                    <textarea class="textbox" id="weeklyPlanner"></textarea>
+                </div>
+
+                <div class="planner-section">
+                    <div class="navigation">
+                        <button id="prevDay">◀</button>
+                        <h2 id="dayLabel">Daily Plan</h2>
+                        <button id="nextDay">▶</button>
+                    </div>
+                    <textarea class="textbox" id="dailyPlanner"></textarea>
+                </div>
+            </div>
+
+            <div class="right-side">
+                <div class="to-do-list border">
+                    <h2>To-Do List</h2>
+                    <ul id="todoList"></ul>
+                    <div class="add-todo">
+                        <input type="text" id="newTodo" placeholder="Add a new task">
+                        <button onclick="addTodo()">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="monthly-toggle" class="monthly-toggle">
+            <span class="arrow">▶</span>
+        </div>
+
+        <div class="slide-out">
+            <div class="slide-out-section">
+                <h2>Annual</h2>
+                <textarea class="textbox"></textarea>
+            </div>
+            <div class="slide-out-section">
+                <h2>Quarterly</h2>
+                <textarea class="textbox"></textarea>
+            </div>
+            <div class="slide-out-section">
+                <h2>Monthly</h2>
+                <textarea class="textbox"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
