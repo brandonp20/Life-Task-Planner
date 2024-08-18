@@ -135,3 +135,30 @@ document.addEventListener('DOMContentLoaded', function() {
         arrow.classList.toggle('active');
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const loginButton = document.querySelector('.login-button');
+    const loginOverlay = document.querySelector('.login-container');
+    const mainContainer = document.querySelector('.container');
+    const loginCloseButton = document.querySelector('.login-container-close-button');
+
+    if (!loginButton || !loginOverlay || !mainContainer || !loginCloseButton) {
+        console.error('One or more required elements are missing');
+        return;
+    }
+
+    function showLogin() {
+        loginOverlay.style.display = 'flex';
+        mainContainer.style.opacity = '0.25';
+        mainContainer.style.pointerEvents = 'none';
+    }
+
+    function hideLogin() {
+        loginOverlay.style.display = 'none';
+        mainContainer.style.opacity = '1';
+        mainContainer.style.pointerEvents = 'auto';
+    }
+
+    loginButton.addEventListener('click', showLogin);
+    loginCloseButton.addEventListener('click', hideLogin);
+});

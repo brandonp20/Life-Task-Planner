@@ -17,9 +17,14 @@ body, html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 10px 35px;
     background-color: #f8f9fa;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.login-button {
+    color: white;
+    font-size: 16px;
 }
 
 .login-button:hover {
@@ -41,7 +46,7 @@ body, html {
     padding: 5px;
     font-size: 14px;
     text-align: center;
-    width: 200px;
+    width: 750px;
     border: 1px solid #ced4da;
     border-radius: 4px;
 }
@@ -70,13 +75,16 @@ body, html {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+
+
 .navigation {
     display: flex;
-    align-items: center;
     margin-bottom: 10px;
+    justify-content: left;
 }
 
 .navigation button {
+    justify-content: left;
     background: none;
     border: none;
     font-size: 18px;
@@ -88,6 +96,10 @@ body, html {
 .navigation h2 {
     margin: 0;
     flex-grow: 1;
+}
+
+.to-do-list h2 {
+    margin-top: 0;
 }
 
 .border {
@@ -123,12 +135,12 @@ h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 10px;
+    padding: 12px 10px;
     margin-bottom: 5px;
     background-color: #ffffff;
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .todo-text {
@@ -220,6 +232,94 @@ button:hover {
     transform: rotate(180deg);
 }
 
+.login-container {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100; 
+    border: 3px solid rgb(67, 67, 67);
+    border-radius: 20px;
+    width: 25%;
+    height: 45%;
+    background-color: #fff;
+    padding: 25px;
+    box-sizing: border-box;
+}
+
+.login-container-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.login-header {
+    font-weight: bold;
+    font-size: 28px;
+    flex: 1;
+    text-align: center;
+}
+
+.login-top-row-placeholder {
+    color: #fff;
+}
+
+.login-container-close-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px 10px;
+    color: #333;
+    align-self: flex-start;
+}
+
+.login-container-close-button:hover {
+    color: #666;
+}
+
+.username-input-header,
+.password-input-header {
+    align-self: flex-start;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.username-input,
+.password-input {
+    background-color: rgb(237, 237, 237);
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    box-sizing: border-box;
+}
+
+.actual-login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 15px;
+}
+
+.signup-link {
+    font-size: 14px;
+    color: #007bff;
+    cursor: pointer;
+    margin: 15px;
+}
+
 .dark-mode-toggle {
     position: fixed;
     top: 10px;
@@ -228,7 +328,7 @@ button:hover {
 }
 
 #darkModeToggle {
-    background: none;
+    background: gray;
     border: none;
     font-size: 24px;
     cursor: pointer;
@@ -248,11 +348,11 @@ button:hover {
 }
 
 .dark-mode .login-button {
-    background-color: #0056b3;
+    color: white;
 }
 
 .dark-mode .login-button:hover {
-    background-color: #003d82;
+    color: white;
 }
 
 .dark-mode .life-task-input {
@@ -286,11 +386,11 @@ button:hover {
 }
 
 .dark-mode button {
-    background-color: #0056b3;
+    color: white;
 }
 
 .dark-mode button:hover {
-    background-color: #003d82;
+    color: white;
 }
 
 .dark-mode #darkModeToggle:hover {
