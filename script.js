@@ -2,6 +2,7 @@ let dailyPlans = {};
 let weeklyPlans = {};
 
 document.addEventListener('DOMContentLoaded', function() {
+    
     const darkModeToggle = document.getElementById('darkModeToggle');
     const htmlElement = document.documentElement;
 
