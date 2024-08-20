@@ -47,8 +47,24 @@ body, html {
     font-size: 14px;
     text-align: center;
     width: 750px;
-    border: 1px solid #ced4da;
+    border: none;
+    background: none;
     border-radius: 4px;
+}
+
+.life-task-input:hover, .textbox:hover {
+    border: 1px solid lightgrey;
+    outline: none;
+}
+
+.life-task-input:focus, .textbox:focus {
+    outline: none;
+    border: none;
+}
+
+.textbox {
+    border: none;
+    background: none;
 }
 
 .main-content {
