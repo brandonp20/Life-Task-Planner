@@ -11,7 +11,7 @@
         <div class="header-bar">
             <button class="login-button">Login</button>
             <div class="life-task-container">
-                <h1>Life's Task</h1>
+                <h1 class="life-task-header">Life's Task</h1>
                 <input type="text" class="life-task-input" placeholder="Enter your life's task">
             </div>
             <button id="darkModeToggle">🌓</button>
@@ -21,18 +21,18 @@
             <div class="left-side">
                 <div class="planner-section">
                     <div class="navigation">
-                        <button id="prevWeek">◀</button>
+                        <button id="prevWeek" class="nav-arrow">◀</button>
                         <h2 id="weekLabel">Weekly Plan</h2>
-                        <button id="nextWeek">▶</button>
+                        <button id="nextWeek" class="nav-arrow">▶</button>
                     </div>
                     <textarea class="textbox" id="weeklyPlanner"></textarea>
                 </div>
 
                 <div class="planner-section">
                     <div class="navigation">
-                        <button id="prevDay">◀</button>
+                        <button id="prevDay" class="nav-arrow">◀</button>
                         <h2 id="dayLabel">Daily Plan</h2>
-                        <button id="nextDay">▶</button>
+                        <button id="nextDay" class="nav-arrow">▶</button>
                     </div>
                     <textarea class="textbox" id="dailyPlanner"></textarea>
                 </div>
@@ -51,21 +51,33 @@
         </div>
 
         <div id="monthly-toggle" class="monthly-toggle">
-            <span class="arrow">▶</span>
+            <span class="arrow">◀</span>
         </div>
 
         <div class="slide-out">
             <div class="slide-out-section">
-                <h2>Annual</h2>
-                <textarea class="textbox"></textarea>
+                <div class="navigation">
+                    <button id="prevYear" class="nav-arrow">◀</button>
+                    <h2 id="yearLabel">Annual</h2>
+                    <button id="nextYear" class="nav-arrow">▶</button>
+                </div>
+                <textarea class="textbox" id="yearlyPlanner"></textarea>
             </div>
             <div class="slide-out-section">
-                <h2>Quarter</h2>
-                <textarea class="textbox"></textarea>
+                <div class="navigation">
+                    <button id="prevQuarter" class="nav-arrow">◀</button>
+                    <h2 id="quarterLabel">Quarter</h2>
+                    <button id="nextQuarter" class="nav-arrow">▶</button>
+                </div>
+                <textarea class="textbox" id="quarterlyPlanner"></textarea>
             </div>
             <div class="slide-out-section">
-                <h2>Monthly</h2>
-                <textarea class="textbox"></textarea>
+                <div class="navigation">
+                    <button id="prevMonth" class="nav-arrow">◀</button>
+                    <h2 id="monthLabel">Monthly</h2>
+                    <button id="nextMonth" class="nav-arrow">▶</button>
+                </div>
+                <textarea class="textbox" id="monthlyPlanner"></textarea>
             </div>
         </div>
     </div>

@@ -1,5 +1,8 @@
 let dailyPlans = {};
 let weeklyPlans = {};
+let monthlyPlans = {};
+let quarterlyPlans = {};
+let yearlyPlans = {};
 
 document.addEventListener('DOMContentLoaded', function() {
     
@@ -22,6 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         updateDayLabel();
         updateWeekLabel();
+        updateMonthLabel();
+        updateQuarterLabel();
+        updateYearLabel();
         
         // Save the user's preference
         if (htmlElement.classList.contains('dark-mode')) {
@@ -40,11 +46,20 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentDate = new Date();
     updateDayLabel();
     updateWeekLabel();
+    updateMonthLabel();
+    updateQuarterLabel();
+    updateYearLabel();
 
     document.getElementById('prevDay').addEventListener('click', () => navigateDay(-1));
     document.getElementById('nextDay').addEventListener('click', () => navigateDay(1));
     document.getElementById('prevWeek').addEventListener('click', () => navigateWeek(-1));
     document.getElementById('nextWeek').addEventListener('click', () => navigateWeek(1));
+    document.getElementById('prevMonth').addEventListener('click', () => navigateMonth(-1));
+    document.getElementById('nextMonth').addEventListener('click', () => navigateMonth(1));
+    document.getElementById('prevQuarter').addEventListener('click', () => navigateQuarter(-1));
+    document.getElementById('nextQuarter').addEventListener('click', () => navigateQuarter(1));
+    document.getElementById('prevYear').addEventListener('click', () => navigateYear(-1));
+    document.getElementById('nextYear').addEventListener('click', () => navigateYear(1));
 
     function navigateDay(delta) {
         currentDate.setDate(currentDate.getDate() + delta);
@@ -56,6 +71,21 @@ document.addEventListener('DOMContentLoaded', function() {
         updateWeekLabel();
     }
 
+    function navigateMonth(delta) {
+        currentDate.setMonth(currentDate.getMonth() + delta);
+        updateMonthLabel();
+    }
+    
+    function navigateYear(delta) {
+        currentDate.setFullYear(currentDate.getFullYear() + delta);
+        updateYearLabel();
+    }
+    
+    function navigateQuarter(delta) {
+        currentDate.setMonth(currentDate.getMonth() + (delta * 3));
+        updateQuarterLabel();
+    }
+
     function updateDayLabel() {
         const options = { weekday: 'short', year: '2-digit', month: '2-digit', day: '2-digit' };
         const dateStr = currentDate.toLocaleDateString(undefined, options);
@@ -64,6 +94,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const dailyKey = currentDate.toISOString().split('T')[0];
         const dailyTextarea = document.getElementById('dailyPlanner');
         dailyTextarea.value = dailyPlans[dailyKey] || '';
+        console.log(dailyKey);
+        console.log(dailyTextarea.value);
         
         dailyTextarea.onchange = function() {
             dailyPlans[dailyKey] = this.value;
@@ -88,6 +120,50 @@ document.addEventListener('DOMContentLoaded', function() {
         weeklyTextarea.onchange = function() {
             weeklyPlans[weeklyKey] = this.value;
             localStorage.setItem('weeklyPlans', JSON.stringify(weeklyPlans));
+        };
+    }
+
+    function updateYearLabel() {
+        const year = currentDate.getFullYear();
+        document.getElementById('yearLabel').textContent = `Annual Plan - ${year}`;
+        
+        const yearlyKey = year.toString();
+        const yearlyTextarea = document.getElementById('yearlyPlanner');
+        yearlyTextarea.value = yearlyPlans[yearlyKey] || '';
+        
+        yearlyTextarea.onchange = function() {
+            yearlyPlans[yearlyKey] = this.value;
+            localStorage.setItem('yearlyPlans', JSON.stringify(yearlyPlans));
+        };
+    }
+    
+    function updateQuarterLabel() {
+        const year = currentDate.getFullYear();
+        const quarter = Math.floor(currentDate.getMonth() / 3) + 1;
+        document.getElementById('quarterLabel').textContent = `Quarterly Plan - Q${quarter} ${year}`;
+        
+        const quarterlyKey = `${year}-Q${quarter}`;
+        const quarterlyTextarea = document.getElementById('quarterlyPlanner');
+        quarterlyTextarea.value = quarterlyPlans[quarterlyKey] || '';
+        
+        quarterlyTextarea.onchange = function() {
+            quarterlyPlans[quarterlyKey] = this.value;
+            localStorage.setItem('quarterlyPlans', JSON.stringify(quarterlyPlans));
+        };
+    }
+    
+    function updateMonthLabel() {
+        const options = { year: 'numeric', month: '2-digit' };
+        const monthStr = currentDate.toLocaleDateString(undefined, options);
+        document.getElementById('monthLabel').textContent = `Monthly Plan - ${monthStr}`;
+        
+        const monthlyKey = currentDate.toISOString().slice(0, 7); // YYYY-MM format
+        const monthlyTextarea = document.getElementById('monthlyPlanner');
+        monthlyTextarea.value = monthlyPlans[monthlyKey] || '';
+        
+        monthlyTextarea.onchange = function() {
+            monthlyPlans[monthlyKey] = this.value;
+            localStorage.setItem('monthlyPlans', JSON.stringify(monthlyPlans));
         };
     }
 });
