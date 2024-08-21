@@ -151,7 +151,7 @@
     function ensureSubitemToggle(subContainer) {
         if (!subContainer.querySelector('.subitem-toggle')) {
             var toggleButton = createButton(
-                "▲ Show Completed Sub-Tasks",
+                "▲ Show Completed Subtasks",
                 function() { toggleCompletedSubitems(subContainer); }
             );
             toggleButton.className = 'subitem-toggle';
@@ -333,9 +333,9 @@
         updateSubitemsVisibility(subContainer);
         var toggleButton = subContainer.querySelector('.subitem-toggle');
         if (subContainer.classList.contains('hide-completed-subitems')) {
-            toggleButton.textContent = "▼ Show Completed";
+            toggleButton.textContent = "▼ Show Completed Subtasks";
         } else {
-            toggleButton.textContent = "▲ Hide Completed";
+            toggleButton.textContent = "▲ Hide Completed Subtasks";
         }
     }
 

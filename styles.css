@@ -344,7 +344,7 @@ h2 {
 
 .due-date-btn {
     color: gray;
-    background-color: #fff;
+    background: none;
 }
 
 .due-date-btn.has-due-date {
@@ -388,6 +388,8 @@ h2 {
     padding: 10px;
     background-color: #f0f0f0;
     border-radius: 5px;
+    font-size: 14px;
+    color:rgb(58, 58, 58);
 }
 
 #completed-items-header:hover {
