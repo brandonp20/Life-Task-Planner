@@ -55,15 +55,15 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('nextYear').addEventListener('click', () => dateFunctions.navigateYear(1));
 
     // Allow adding a todo by pressing Enter
-    document.getElementById("newTodo").addEventListener("keypress", function(event) {
+    document.getElementById("new-todo-item-input").addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
             todoFunctions.addTodo();
         }
     });
 
-    document.getElementById("todoAddButton").addEventListener('click', function() {
+    document.getElementById("new-todo-add-button").addEventListener('click', function() {
         todoFunctions.addTodo();
-    })
+    });
 
     // Slide-out functionality
     const monthlyToggle = document.getElementById('monthly-toggle');
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
         arrow.classList.toggle('active');
     });
 
-    // Login functionality\
+    // Login functionality
     const loginButton = document.querySelector('.login-button');
     const loginOverlay = document.querySelector('.login-container');
     const mainContainer = document.querySelector('.container');
@@ -90,4 +90,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
     loginButton.addEventListener('click', loginFunctions.showLogin);
     loginCloseButton.addEventListener('click', loginFunctions.hideLogin);
+
+    // Initialize todo functionality
+    todoFunctions.initSortable();
+    
+    const todoList = document.getElementById('actual-todo-item-list');
+    const newTodoInput = document.getElementById('new-todo-item-input');
+    const addTodoButton = document.getElementById('new-todo-add-button');
+    
+    // Note: The following lines are not needed if your HTML already includes these elements
+    // const inputContainer = document.createElement('div');
+    // inputContainer.className = 'add-new-todo-item-container';
+    // inputContainer.appendChild(newTodoInput);
+    // inputContainer.appendChild(addTodoButton);
+    // todoList.parentNode.insertBefore(inputContainer, todoList);
+
+    const completedItemsHeader = document.getElementById('completed-items-header');
+    const completedList = document.getElementById('completed-todo-item-list');
+    const dropdownArrow = completedItemsHeader.querySelector('.dropdown-arrow');
+
+    completedItemsHeader.addEventListener('click', function() {
+        const isHidden = completedList.style.display === 'none';
+        completedList.style.display = isHidden ? 'block' : 'none';
+        dropdownArrow.textContent = isHidden ? '▲' : '▼';
+    });
 });

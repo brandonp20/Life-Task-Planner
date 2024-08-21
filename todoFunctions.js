@@ -1,10 +1,9 @@
 // todoFunctions.js
 (function() {
     let mainSortable, subitemSortables = [];
-    let hideCompletedMain = false;
 
     function initSortable() {
-        var el = document.getElementById('todoList');
+        var el = document.getElementById('actual-todo-item-list');
         mainSortable = Sortable.create(el, {
             animation: 150,
             ghostClass: 'blue-background-class'
@@ -27,67 +26,86 @@
     }
 
     function addTodo() {
-        var input = document.getElementById("newTodo");
+        var input = document.getElementById("new-todo-item-input");
         var todoText = input.value.trim();
         
         if (todoText !== "") {
             var li = createTodoItem(todoText);
-            document.getElementById("todoList").appendChild(li);
+            document.getElementById("actual-todo-item-list").appendChild(li);
             input.value = "";
             initSubitemSortables();
-            updateMainItemsVisibility();
         }
     }
 
     function createTodoItem(text) {
         var li = document.createElement("li");
         li.className = 'todo-item-wrapper';
-
+    
         var mainDiv = document.createElement("div");
         mainDiv.className = 'todo-main';
-
+    
         var dropdownButton = createButton("▼", toggleSubitems);
         dropdownButton.classList.add('dropdown-btn');
         mainDiv.appendChild(dropdownButton);
-
+    
         var todoSpan = document.createElement("span");
         todoSpan.textContent = text;
         todoSpan.classList.add('todo-text');
         mainDiv.appendChild(todoSpan);
-
+    
         var buttonsDiv = document.createElement("div");
         buttonsDiv.className = "todo-buttons";
-
+    
         var deleteButton = createButton("−", function() {
             li.remove();
             initSubitemSortables();
             updateMainItemsVisibility();
         });
         deleteButton.classList.add('delete-btn');
-
+    
         var checkButton = createButton("✓", function() {
-            li.classList.toggle('completed');
-            updateMainItemsVisibility();
+            toggleItemCompletion(li);  // Pass 'li' as an argument here
         });
         checkButton.classList.add('check-btn');
-
+    
         var dueDateButton = createButton("📅", function() {
             setDueDate(li);
         });
         dueDateButton.classList.add('due-date-btn');
-
+    
         buttonsDiv.appendChild(deleteButton);
         buttonsDiv.appendChild(checkButton);
         buttonsDiv.appendChild(dueDateButton);
         mainDiv.appendChild(buttonsDiv);
-
+    
         li.appendChild(mainDiv);
-
+    
         var subContainer = createSubitemContainer();
         ensureSubitemInput(subContainer);
         li.appendChild(subContainer);
-
+    
         return li;
+    }
+
+    function toggleItemCompletion(item) {
+        if (!item) {
+            console.error('Item is undefined in toggleItemCompletion');
+            return;
+        }
+        item.classList.toggle('completed');
+        var todoList = document.getElementById('actual-todo-item-list');
+        var completedList = document.getElementById('completed-todo-item-list');
+        
+        if (item.classList.contains('completed')) {
+            completedList.appendChild(item);
+        } else {
+            todoList.appendChild(item);
+        }
+        
+        var subContainer = item.querySelector('.subitem-container');
+        if (subContainer) {
+            updateSubitemsVisibility(subContainer);
+        }
     }
 
     function toggleSubitems() {
@@ -121,7 +139,7 @@
     function ensureSubitemToggle(subContainer) {
         if (!subContainer.querySelector('.subitem-toggle')) {
             var toggleButton = createButton(
-                "Hide Completed Subitems",
+                "Hide Completed",
                 function() { toggleCompletedSubitems(subContainer); }
             );
             toggleButton.className = 'subitem-toggle';
@@ -238,30 +256,13 @@
         }
     }
 
-    function toggleHideCompletedMain() {
-        hideCompletedMain = !hideCompletedMain;
-        updateMainItemsVisibility();
-        var toggleButton = document.getElementById('toggleCompletedButton');
-        toggleButton.textContent = hideCompletedMain ? "Show Completed" : "Hide Completed";
-    }
-
-    function updateMainItemsVisibility() {
-        document.querySelectorAll('.todo-item-wrapper').forEach(function(item) {
-            if (hideCompletedMain && item.classList.contains('completed')) {
-                item.style.display = 'none';
-            } else {
-                item.style.display = '';
-            }
-        });
-    }
-
     function toggleCompletedSubitems(subContainer) {
         subContainer.classList.toggle('hide-completed-subitems');
         updateSubitemsVisibility(subContainer);
         var toggleButton = subContainer.querySelector('.subitem-toggle');
         toggleButton.textContent = subContainer.classList.contains('hide-completed-subitems') 
-            ? "Show Completed Subitems" 
-            : "Hide Completed Subitems";
+            ? "Show Completed" 
+            : "Hide Completed";
     }
 
     function updateSubitemsVisibility(subContainer) {
@@ -278,24 +279,20 @@
     document.addEventListener('DOMContentLoaded', function() {
         initSortable();
         
-        var todoList = document.getElementById('todoList');
-        var newTodoInput = document.getElementById('newTodo');
-        var addTodoButton = document.getElementById('todoAddButton');
+        var todoList = document.getElementById('actual-todo-item-list');
+        var newTodoInput = document.getElementById('new-todo-item-input');
+        var addTodoButton = document.getElementById('new-todo-add-button');
         
         var inputContainer = document.createElement('div');
-        inputContainer.className = 'new-todo-container';
+        inputContainer.className = 'add-new-todo-item-container';
         inputContainer.appendChild(newTodoInput);
         inputContainer.appendChild(addTodoButton);
         
         todoList.parentNode.insertBefore(inputContainer, todoList);
-
-        // Add global toggle button for hiding completed main items
-        var toggleButton = createButton("Hide Completed", toggleHideCompletedMain);
-        toggleButton.id = 'toggleCompletedButton';
-        todoList.parentNode.insertBefore(toggleButton, todoList);
     });
 
     window.todoFunctions = {
-        addTodo: addTodo
+        addTodo: addTodo,
+        initSortable: initSortable
     };
 })();

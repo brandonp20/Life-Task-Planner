@@ -1,3 +1,5 @@
+/************ General/Multiple **********/
+
 body, html {
     margin: 0;
     padding: 0;
@@ -13,6 +15,7 @@ body, html {
     overflow: hidden;
 }
 
+/************ Page Header **********/
 .header-bar {
     display: flex;
     justify-content: space-between;
@@ -62,11 +65,7 @@ body, html {
     border: none;
 }
 
-.textbox {
-    border: none;
-    background: none;
-}
-
+/************ Main Content **********/
 .main-content {
     display: flex;
     flex-grow: 1;
@@ -81,14 +80,15 @@ body, html {
     gap: 20px;
 }
 
-.planner-section, .to-do-list {
+.planner-section, .todo-list-container {
+    height: 100%;
     display: flex;
     flex-direction: column;
     flex: 1;
     padding: 15px;
     background-color: #f8f9fa;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 2px 2px 5px 2px rgba(0,0,0,.2);
 }
 
 .navigation {
@@ -117,10 +117,6 @@ body, html {
     margin: 0;
 }
 
-.to-do-list h2 {
-    margin-top: 0;
-}
-
 .border {
     border: 1px solid #dee2e6;
     box-sizing: border-box;
@@ -132,12 +128,8 @@ body, html {
     padding: 10px;
     font-size: 16px;
     flex-grow: 1;
-    border-radius: 4px;
     background: rgb(253, 253, 253);
-}
-
-.planner-section {
-    box-shadow: 2px 2px 5px 2px rgba(0,0,0,.2);
+    border: none;
 }
 
 h2 {
@@ -147,213 +139,7 @@ h2 {
     color: #495057;
 }
 
-#todoList {
-    list-style-type: none;
-    padding: 0;
-    margin-bottom: 20px;
-}
-
-.todo-item-wrapper {
-    margin-bottom: 10px;
-}
-
-.todo-item-wrapper.completed,
-.subitem.completed {
-    opacity: 0.6;
-}
-
-#toggleCompletedButton,
-.subitem-toggle {
-    margin-bottom: 10px;
-}
-
-.subitem-container {
-    margin-left: 20px;
-    border-left: 1px solid #ccc;
-    padding-left: 10px;
-}
-
-.hide-completed-subitems .subitem.completed {
-    display: none;
-}
-
-.toggle-subitems-btn {
-    cursor: pointer;
-    margin-right: 5px;
-}
-
-.subitem-container {
-    margin-left: 20px;
-    border-left: 1px solid #ccc;
-    padding-left: 10px;
-}
-
-.todo-main {
-    display: flex;
-    align-items: center;
-    padding: 12px 10px;
-    background-color: #ffffff;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    font-size: 18px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.todo-text {
-    flex-grow: 1;
-    margin-left: 10px;
-}
-
-.todo-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-.delete-btn, .add-subitem-btn, .check-btn, .dropdown-btn {
-    padding: 5px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 20px;
-    line-height: 1;
-    transition: color 0.3s;
-}
-
-.delete-btn {
-    color: #ff4d4d;
-}
-
-.add-subitem-btn {
-    color: #4CAF50;
-}
-
-.check-btn {
-    color: #3498db;
-}
-
-.dropdown-btn {
-    color: #888;
-    margin-right: 5px;
-}
-
-.subitem-container {
-    margin-top: 5px;
-    padding-left: 20px;
-}
-
-.subitem {
-    display: flex;
-    align-items: center;
-    padding: 8px 10px;
-    margin-top: 5px;
-    background-color: #f0f0f0;
-    border-radius: 3px;
-    font-size: 16px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.subitem-symbol {
-    margin-right: 10px;
-    color: #888;
-}
-
-.subitem-text {
-    flex-grow: 1;
-}
-
-.subitem-input-wrapper {
-    margin-top: 5px;
-}
-
-.subitem-input {
-    width: calc(100% - 20px);
-    padding: 8px 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-}
-
-.blue-background-class {
-    background-color: #e0e0ff;
-}
-
-.completed .todo-main {
-    background-color: #2c3e50;
-    color: white;
-}
-
-.completed .todo-main .delete-btn,
-.completed .todo-main .add-subitem-btn,
-.completed .todo-main .check-btn,
-.completed .todo-main .dropdown-btn {
-    color: white;
-}
-
-.completed .todo-text,
-.completed .subitem-container .subitem-text {
-    text-decoration: line-through;
-}
-
-.completed .subitem-container .subitem {
-    background-color: #34495e;
-    color: white;
-}
-
-.completed .subitem-container .subitem-symbol {
-    color: #bdc3c7;
-}
-
-.subitem.completed {
-    text-decoration: line-through;
-    opacity: 0.6;
-}
-
-.subitem-buttons {
-    display: flex;
-    margin-left: auto;
-}
-
-.subitem-buttons button {
-    margin-left: 5px;
-}
-
-.new-todo-container {
-    display: flex;
-    margin-top: 20px;
-}
-
-#newTodo {
-    flex-grow: 1;
-    padding: 10px;
-    font-size: 18px;
-    border: 1px solid #ddd;
-    border-radius: 4px 0 0 4px;
-}
-
-#todoAddButton {
-    padding: 10px 20px;
-    font-size: 18px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 0 4px 4px 0;
-    cursor: pointer;
-}
-
-button {
-    padding: 10px 15px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 0 4px 4px 0;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
+/******************* Slide Out **********************/
 
 .monthly-toggle {
     position: absolute;
@@ -413,6 +199,253 @@ button:hover {
 .arrow.active {
     transform: rotate(180deg);
 }
+
+/*************** To Do List ***************/
+
+.todo-list-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.todo-list-container h2 {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #495057;
+}
+
+/* Actual Todo Item List */
+#actual-todo-item-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+/* Todo Item Styles */
+.todo-item-wrapper {
+    margin-bottom: 10px;
+}
+
+.todo-main {
+    display: flex;
+    align-items: center;
+    padding: 12px 10px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    font-size: 18px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.todo-text {
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.todo-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+/* Todo Item Buttons */
+.delete-btn, .add-subitem-btn, .check-btn, .dropdown-btn {
+    padding: 5px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    transition: color 0.3s;
+}
+/* Subitem Styles */
+.subitem-container {
+    margin-top: 5px;
+    padding-left: 20px;
+}
+
+.subitem {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    margin-top: 5px;
+    background-color: #f0f0f0;
+    border-radius: 3px;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.subitem-symbol {
+    margin-right: 10px;
+    color: #888;
+}
+
+.subitem-text {
+    flex-grow: 1;
+}
+
+.subitem-input-wrapper {
+    margin-top: 5px;
+}
+
+.subitem-input {
+    width: calc(100% - 20px);
+    padding: 8px 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.dropdown-btn {
+    color: black
+}
+
+.delete-btn {
+    color: red;
+    margin-right: 10px;
+    padding: 5px;
+}
+
+.check-btn {
+    color: green;
+    margin-right: 10px;
+    padding: 5px;
+}
+
+.due-date-btn {
+    color: black;
+    background: none;
+    margin: 0;
+    padding: 5px;
+}
+
+/* Completed Todo Item Styles */
+
+.completed-items-section {
+    margin-top: 20px;
+}
+
+#completed-items-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
+#completed-items-header:hover {
+    background-color: #e0e0e0;
+}
+
+.dropdown-arrow {
+    font-size: 12px;
+}
+
+#completed-todo-item-list {
+    margin-top: 10px;
+}
+#toggle-completed-button:hover {
+    background-color: #e0e0e0;
+}
+
+#completed-todo-item-list {
+    margin-top: 10px;
+}
+
+.completed .todo-main {
+    background-color: #2c3e50;
+    color: white;
+}
+
+.completed .todo-main .delete-btn,
+.completed .todo-main .add-subitem-btn,
+.completed .todo-main .check-btn,
+.completed .todo-main .dropdown-btn {
+    color: white;
+}
+
+.completed .todo-text {
+    text-decoration: line-through;
+}
+
+/* Updated Completed Subitem Styles */
+.subitem.completed {
+    background-color: #34495e;
+    color: white;
+}
+
+.subitem.completed .subitem-text {
+    text-decoration: line-through;
+}
+
+.subitem.completed .subitem-symbol {
+    color: #bdc3c7;
+}
+
+/* Ensure buttons in completed subitems are visible */
+.subitem.completed .delete-btn,
+.subitem.completed .check-btn,
+.subitem.completed .due-date-btn {
+    color: white;
+}
+
+/***************** To Do Item Add Container**********/
+
+.add-new-todo-item-container {
+    display: flex;
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+}
+
+#new-todo-item-input {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+}
+
+#new-todo-add-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#new-todo-add-button:hover {
+    background-color: #45a049;
+}
+
+
+button {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+    border-radius: 5px;
+}
+
+/****************** Login ******************/
 
 .login-container {
     display: none;
@@ -502,6 +535,8 @@ button:hover {
     margin: 15px;
 }
 
+/******************** Dark Mode *********************/
+
 .dark-mode-toggle {
     position: fixed;
     top: 10px;
@@ -544,7 +579,7 @@ button:hover {
 }
 
 .dark-mode .planner-section,
-.dark-mode .to-do-list,
+.dark-mode .to-do-list-container,
 .dark-mode .slide-out {
     background-color: #2a2a2a;
     box-shadow: 0 2px 4px rgba(255,255,255,0.1);

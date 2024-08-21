@@ -39,12 +39,19 @@
             </div>
 
             <div class="right-side">
-                <div class="to-do-list">
+                <div class="todo-list-container">
                     <h2>To-Do List</h2>
-                    <ul id="todoList"></ul>
-                    <div class="add-todo-item-container">
-                        <input type="text" id="newTodo" placeholder="Add a new task">
-                        <button id="todoAddButton">Add</button>
+                    <ul id="actual-todo-item-list"></ul>
+                    <div class="completed-items-section">
+                        <h3 id="completed-items-header">
+                            <span>Completed Items</span>
+                            <span class="dropdown-arrow">▼</span>
+                        </h3>
+                        <ul id="completed-todo-item-list" style="display: none;"></ul>
+                    </div>
+                    <div class="add-new-todo-item-container">
+                        <input type="text" id="new-todo-item-input" placeholder="Add a new task">
+                        <button id="new-todo-add-button">Add</button>
                     </div>
                 </div>                
             </div>
