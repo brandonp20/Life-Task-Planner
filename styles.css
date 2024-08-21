@@ -28,6 +28,8 @@ body, html {
 .login-button {
     color: white;
     font-size: 16px;
+    border-radius: 5px;
+    background: #003c7d;
 }
 
 .login-button:hover {
@@ -146,17 +148,19 @@ h2 {
     right: 0.2%;
     top: 50%;
     transform: translateY(+50%);
-    background-color: #007bff;
+    transform: rotate(180deg);
+    background-color: #003c7d;
     color: white;
     padding: 15px 5px;
     cursor: pointer;
     z-index: 10;
     border-radius: 0 5px 5px 0;
-    transition: right 0.3s ease-in-out;
+    transition: right 0.5s ease-in-out;
 }
 
 .monthly-toggle.active {
-    right: calc(50% - 23px);
+    right: calc(50% - 33px);
+    transform: rotate(0deg);
 }
 
 .slide-out {
@@ -165,14 +169,14 @@ h2 {
     width: 50%;
     height: 100%;
     background-color: #f8f9fa;
-    transition: right 0.3s ease-in-out;
+    transition: right 0.5s ease-in-out;
     display: flex;
     flex-direction: column;
     padding: 20px;
     box-sizing: border-box;
     gap: 20px;
-    border: 10px solid #007bff;
-    border-radius: 10px;
+    border: 8px solid #003c7d;
+    border-radius: 8px;
 }
 
 .slide-out.active {
@@ -194,6 +198,8 @@ h2 {
 .arrow {
     display: inline-block;
     transition: transform 0.3s ease-in-out;
+    transform: rotate(180deg);
+    padding: 2px;
 }
 
 .arrow.active {
@@ -202,26 +208,21 @@ h2 {
 
 /*************** To Do List ***************/
 
-.todo-list-container {
+.todo-main {
     display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: 15px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-}
-
-.todo-list-container h2 {
-    font-weight: bold;
-    margin-bottom: 10px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 10px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     font-size: 18px;
-    color: #495057;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 /* Actual Todo Item List */
 #actual-todo-item-list {
     flex-grow: 1;
-    overflow-y: auto;
     list-style-type: none;
     padding: 0;
     margin-bottom: 20px;
@@ -232,25 +233,42 @@ h2 {
     margin-bottom: 10px;
 }
 
-.todo-main {
-    display: flex;
-    align-items: center;
-    padding: 12px 10px;
-    background-color: #ffffff;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    font-size: 18px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
 .todo-text {
     flex-grow: 1;
+    min-width: 0;
     margin-left: 10px;
+    /* Remove any existing overflow, white-space, or text-overflow properties */
+    overflow: visible;
+    white-space: normal;
+    word-break: break-word;  /* This allows long words to break */
+    overflow-wrap: break-word;  /* This is a fallback for word-break */
+    max-width: 100%;  /* Ensure the text doesn't exceed its container */
 }
 
 .todo-buttons {
     display: flex;
+    align-items: center;
     gap: 10px;
+}
+
+.todo-button {
+    width: 30px; /* Set a fixed width */
+    height: 30px; /* Set a fixed height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 50%; /* Makes the buttons circular */
+}
+
+.todo-button:hover {
+    background-color: #f0f0f0;
 }
 
 /* Todo Item Buttons */
@@ -263,6 +281,7 @@ h2 {
     line-height: 1;
     transition: color 0.3s;
 }
+
 /* Subitem Styles */
 .subitem-container {
     margin-top: 5px;
@@ -280,13 +299,23 @@ h2 {
     transition: background-color 0.3s, color 0.3s;
 }
 
-.subitem-symbol {
-    margin-right: 10px;
-    color: #888;
-}
-
 .subitem-text {
     flex-grow: 1;
+    margin-left: 8px;
+}
+
+.subitem-toggle {
+    background-color:gray;
+    border-radius: 2px;
+    width: 100%;
+    height: 1%;
+    margin: 0;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.subitem-toggle:hover {
+    background-color: rgb(158, 158, 158);
 }
 
 .subitem-input-wrapper {
@@ -307,21 +336,42 @@ h2 {
 
 .delete-btn {
     color: red;
-    margin-right: 10px;
-    padding: 5px;
 }
 
 .check-btn {
     color: green;
-    margin-right: 10px;
-    padding: 5px;
 }
 
 .due-date-btn {
+    color: gray;
+    background-color: #fff;
+}
+
+.due-date-btn.has-due-date {
+    background-color: #ae1dbb;
+    color: white;
+    font-size: 12px;
+    width: auto;
+    padding: 5px 6px;
+    border-radius: 4px;
+}
+
+.todo-item-calendar-close-button {
+    position: absolute;
     color: black;
-    background: none;
-    margin: 0;
-    padding: 5px;
+    width: 258px;
+    top: 200px;
+    left: 0;
+    z-index: 1001;
+    background: white;
+    border: lightgrey 2px solid;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 5px 0;
+}
+
+.todo-item-calendar-close-button:hover {
+    background-color: orange;
 }
 
 /* Completed Todo Item Styles */
@@ -383,10 +433,6 @@ h2 {
 
 .subitem.completed .subitem-text {
     text-decoration: line-through;
-}
-
-.subitem.completed .subitem-symbol {
-    color: #bdc3c7;
 }
 
 /* Ensure buttons in completed subitems are visible */
@@ -453,14 +499,16 @@ button:hover {
     align-items: center;
     justify-content: flex-start;
     position: fixed;
-    top: 25%;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     z-index: 100; 
     border: 3px solid rgb(67, 67, 67);
     border-radius: 20px;
-    width: 25%;
-    height: 45%;
+    width: 90%; /* Changed from fixed width to percentage */
+    max-width: 400px; /* Added max-width */
+    height: auto; /* Changed from fixed height to auto */
+    min-height: 300px; /* Added min-height */
     background-color: #fff;
     padding: 25px;
     box-sizing: border-box;
@@ -476,7 +524,7 @@ button:hover {
 
 .login-header {
     font-weight: bold;
-    font-size: 28px;
+    font-size: 1.5rem; /* Changed to relative unit */
     flex: 1;
     text-align: center;
 }
@@ -488,15 +536,11 @@ button:hover {
 .login-container-close-button {
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: 1.25rem; /* Changed to relative unit */
     cursor: pointer;
     padding: 5px 10px;
     color: #333;
     align-self: flex-start;
-}
-
-.login-container-close-button:hover {
-    color: #666;
 }
 
 .username-input-header,
@@ -508,13 +552,10 @@ button:hover {
 
 .username-input,
 .password-input {
-    background-color: rgb(237, 237, 237);
+    background-color: rgb(243, 243, 243);
     width: 100%;
     padding: 8px;
     margin-bottom: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-    box-sizing: border-box;
 }
 
 .actual-login-button {
@@ -525,14 +566,32 @@ button:hover {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin: 15px;
+    margin: 15px 0; /* Changed to vertical margin only */
 }
 
 .signup-link {
-    font-size: 14px;
+    font-size: 0.875rem; /* Changed to relative unit */
     color: #007bff;
     cursor: pointer;
-    margin: 15px;
+    margin: 15px 0; /* Changed to vertical margin only */
+    text-align: center; /* Ensure text is centered */
+    width: 100%; /* Make sure it takes full width */
+}
+
+/* Media query for very small screens */
+@media (max-width: 320px) {
+    .login-container {
+        padding: 15px;
+    }
+
+    .login-header {
+        font-size: 1.25rem;
+    }
+
+    .actual-login-button,
+    .signup-link {
+        margin: 10px 0;
+    }
 }
 
 /******************** Dark Mode *********************/

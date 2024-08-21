@@ -14,14 +14,25 @@
     function initSubitemSortables() {
         subitemSortables.forEach(s => s.destroy());
         subitemSortables = [];
-
+    
         document.querySelectorAll('.subitem-container').forEach(function(el) {
             subitemSortables.push(Sortable.create(el, {
                 animation: 150,
                 ghostClass: 'blue-background-class',
                 group: el.dataset.groupId,
-                handle: '.subitem-handle'
+                handle: '.subitem-handle',
+                filter: '.completed-subitems-list' // Prevent sorting of completed subitems
             }));
+            
+            var completedList = el.querySelector('.completed-subitems-list');
+            if (completedList) {
+                subitemSortables.push(Sortable.create(completedList, {
+                    animation: 150,
+                    ghostClass: 'blue-background-class',
+                    group: el.dataset.groupId,
+                    handle: '.subitem-handle'
+                }));
+            }
         });
     }
 
@@ -68,7 +79,7 @@
         });
         checkButton.classList.add('check-btn');
     
-        var dueDateButton = createButton("📅", function() {
+        var dueDateButton = createButton("🗓 ", function() {
             setDueDate(li);
         });
         dueDateButton.classList.add('due-date-btn');
@@ -126,6 +137,7 @@
         subContainer.className = 'subitem-container';
         subContainer.style.display = 'none';
         subContainer.dataset.groupId = 'group-' + Date.now();
+        subContainer.classList.add('hide-completed-subitems');
         return subContainer;
     }
 
@@ -139,11 +151,11 @@
     function ensureSubitemToggle(subContainer) {
         if (!subContainer.querySelector('.subitem-toggle')) {
             var toggleButton = createButton(
-                "Hide Completed",
+                "▲ Show Completed Sub-Tasks",
                 function() { toggleCompletedSubitems(subContainer); }
             );
             toggleButton.className = 'subitem-toggle';
-            subContainer.insertBefore(toggleButton, subContainer.firstChild);
+            subContainer.appendChild(toggleButton);
         }
     }
 
@@ -174,49 +186,63 @@
     function createSubitem(text) {
         var subitem = document.createElement("div");
         subitem.className = 'subitem';
-
+    
         var subitemHandle = document.createElement("span");
         subitemHandle.textContent = "☰";
         subitemHandle.className = 'subitem-handle';
         subitem.appendChild(subitemHandle);
-
-        var subitemSymbol = document.createElement("span");
-        subitemSymbol.textContent = "◦";
-        subitemSymbol.classList.add('subitem-symbol');
-        subitem.appendChild(subitemSymbol);
-
+    
         var subitemSpan = document.createElement("span");
         subitemSpan.textContent = text;
         subitemSpan.classList.add('subitem-text');
         subitem.appendChild(subitemSpan);
-
+    
         var buttonsDiv = document.createElement("div");
         buttonsDiv.className = "subitem-buttons";
-
+    
         var deleteButton = createButton("−", function() {
             subitem.remove();
             initSubitemSortables();
             updateSubitemsVisibility(subitem.closest('.subitem-container'));
         });
         deleteButton.classList.add('delete-btn');
-
+    
         var checkButton = createButton("✓", function() {
-            subitem.classList.toggle('completed');
-            updateSubitemsVisibility(subitem.closest('.subitem-container'));
+            toggleSubitemCompletion(subitem);
         });
         checkButton.classList.add('check-btn');
-
-        var dueDateButton = createButton("📅", function() {
+    
+        var dueDateButton = createButton("🗓", function() {
             setDueDate(subitem);
         });
         dueDateButton.classList.add('due-date-btn');
-
+    
         buttonsDiv.appendChild(deleteButton);
         buttonsDiv.appendChild(checkButton);
         buttonsDiv.appendChild(dueDateButton);
         subitem.appendChild(buttonsDiv);
-
+    
         return subitem;
+    }
+
+    function toggleSubitemCompletion(subitem) {
+        subitem.classList.toggle('completed');
+        var subContainer = subitem.closest('.subitem-container');
+        var completedSubitemsList = subContainer.querySelector('.completed-subitems-list');
+        
+        if (!completedSubitemsList) {
+            completedSubitemsList = document.createElement('div');
+            completedSubitemsList.className = 'completed-subitems-list';
+            subContainer.appendChild(completedSubitemsList);
+        }
+        
+        if (subitem.classList.contains('completed')) {
+            completedSubitemsList.appendChild(subitem);
+        } else {
+            subContainer.insertBefore(subitem, completedSubitemsList);
+        }
+        
+        updateSubitemsVisibility(subContainer);
     }
 
     function createButton(text, onclick) {
@@ -226,54 +252,100 @@
         return button;
     }
 
-    function setDueDate(element) {
-        var currentDate = element.dataset.dueDate ? new Date(element.dataset.dueDate) : new Date();
-        var dueDateInput = document.createElement('input');
-        dueDateInput.type = 'date';
-        dueDateInput.value = currentDate.toISOString().split('T')[0];
-        
-        dueDateInput.onchange = function() {
-            element.dataset.dueDate = this.value;
-            updateDueDateDisplay(element);
-            this.remove();
-        };
-        
-        element.appendChild(dueDateInput);
-        dueDateInput.showPicker();
-    }
+    let picker = null;
 
-    function updateDueDateDisplay(element) {
-        var existingDisplay = element.querySelector('.due-date-display');
-        if (existingDisplay) {
-            existingDisplay.remove();
+    function setDueDate(element) {
+        if (picker) {
+            picker.destroy();
         }
+    
+        const today = new Date();
+        const currentDate = element.dataset.dueDate ? new Date(element.dataset.dueDate) : today;
+    
+        picker = new Pikaday({
+            field: element,
+            position: 'top right',
+            reposition: false,
+            container: document.body,
+            bound: false,
+            format: 'MM/DD/YYYY',
+            defaultDate: currentDate,
+            setDefaultDate: true,
+            onSelect: function(date) {
+                const formattedDate = 
+                    (date.getMonth() + 1).toString().padStart(2, '0') + '/' +
+                    date.getDate().toString().padStart(2, '0') + '/' +
+                    date.getFullYear();
+                element.dataset.dueDate = formattedDate;
+                updateDueDateDisplay(element);
+                this.destroy();
+                picker = null;
+            },
+            onClose: function() {
+                this.destroy();
+                picker = null;
+            }
+        });
+    
+        // Position the picker in the top right corner
+        picker.el.style.position = 'fixed';
+        picker.el.style.top = '20px';
+        picker.el.style.right = '20px';
+        picker.el.style.left = 'auto';
+        picker.el.style.zIndex = '1000';
+    
+        // Add a No Due Date button
+        const noDueDateButton = document.createElement('button');
+        noDueDateButton.classList.add('todo-item-calendar-close-button');
+        noDueDateButton.innerHTML = 'No Due Date';
+        noDueDateButton.onclick = function() {
+            delete element.dataset.dueDate; // Remove the due date
+            updateDueDateDisplay(element); // Update the display to show the calendar symbol
+            picker.destroy();
+            picker = null;
+        };
+        picker.el.appendChild(noDueDateButton);
+    
+        picker.show();
+    }
+    
+    function updateDueDateDisplay(element) {
+        var dueDateBtn = element.querySelector('.due-date-btn');
         
         if (element.dataset.dueDate) {
-            var display = document.createElement('span');
-            display.className = 'due-date-display';
-            display.textContent = ' Due: ' + new Date(element.dataset.dueDate).toLocaleDateString();
-            element.querySelector('.todo-text, .subitem-text').appendChild(display);
+            dueDateBtn.textContent = element.dataset.dueDate;
+            dueDateBtn.classList.add('has-due-date');
+        } else {
+            dueDateBtn.textContent = '📆'; // Reset to calendar symbol if no date
+            dueDateBtn.classList.remove('has-due-date');
         }
+    }
+    
+    function createButton(text, onclick) {
+        var button = document.createElement("button");
+        button.textContent = text;
+        button.onclick = onclick;
+        return button;
     }
 
     function toggleCompletedSubitems(subContainer) {
         subContainer.classList.toggle('hide-completed-subitems');
         updateSubitemsVisibility(subContainer);
         var toggleButton = subContainer.querySelector('.subitem-toggle');
-        toggleButton.textContent = subContainer.classList.contains('hide-completed-subitems') 
-            ? "Show Completed" 
-            : "Hide Completed";
+        if (subContainer.classList.contains('hide-completed-subitems')) {
+            toggleButton.textContent = "▼ Show Completed";
+        } else {
+            toggleButton.textContent = "▲ Hide Completed";
+        }
     }
 
     function updateSubitemsVisibility(subContainer) {
         var hideCompleted = subContainer.classList.contains('hide-completed-subitems');
-        subContainer.querySelectorAll('.subitem').forEach(function(subitem) {
-            if (hideCompleted && subitem.classList.contains('completed')) {
-                subitem.style.display = 'none';
-            } else {
-                subitem.style.display = '';
-            }
-        });
+        var completedSubitemsList = subContainer.querySelector('.completed-subitems-list');
+        
+        if (completedSubitemsList) {
+            completedSubitemsList.style.display = hideCompleted ? 'none' : 'block';
+        }
     }
 
     document.addEventListener('DOMContentLoaded', function() {
