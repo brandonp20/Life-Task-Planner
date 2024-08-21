@@ -143,48 +143,151 @@ h2 {
 }
 
 #todoList {
-    flex-grow: 1;
-    overflow-y: auto;
     list-style-type: none;
     padding: 0;
-    margin: 10px 0;
+    margin-bottom: 20px;
 }
 
-#todoList li {
+.todo-item-wrapper {
+    margin-bottom: 10px;
+}
+
+.todo-main {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 12px 10px;
-    margin-bottom: 5px;
     background-color: #ffffff;
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     font-size: 18px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .todo-text {
     flex-grow: 1;
-    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.todo-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.delete-btn, .add-subitem-btn, .check-btn, .dropdown-btn {
+    padding: 5px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    transition: color 0.3s;
 }
 
 .delete-btn {
-    padding: 8px 12px;
-    font-size: 16px;
-    border-radius: 4px;
-    margin: 3px;
+    color: #ff4d4d;
 }
 
-.add-todo {
+.add-subitem-btn {
+    color: #4CAF50;
+}
+
+.check-btn {
+    color: #3498db;
+}
+
+.dropdown-btn {
+    color: #888;
+    margin-right: 5px;
+}
+
+.subitem-container {
+    margin-top: 5px;
+    padding-left: 20px;
+}
+
+.subitem {
     display: flex;
-    margin-top: 10px;
+    align-items: center;
+    padding: 8px 10px;
+    margin-top: 5px;
+    background-color: #f0f0f0;
+    border-radius: 3px;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.subitem-symbol {
+    margin-right: 10px;
+    color: #888;
+}
+
+.subitem-text {
+    flex-grow: 1;
+}
+
+.subitem-input-wrapper {
+    margin-top: 5px;
+}
+
+.subitem-input {
+    width: calc(100% - 20px);
+    padding: 8px 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.blue-background-class {
+    background-color: #e0e0ff;
+}
+
+.completed .todo-main {
+    background-color: #2c3e50;
+    color: white;
+}
+
+.completed .todo-main .delete-btn,
+.completed .todo-main .add-subitem-btn,
+.completed .todo-main .check-btn,
+.completed .todo-main .dropdown-btn {
+    color: white;
+}
+
+.completed .todo-text,
+.completed .subitem-container .subitem-text {
+    text-decoration: line-through;
+}
+
+.completed .subitem-container .subitem {
+    background-color: #34495e;
+    color: white;
+}
+
+.completed .subitem-container .subitem-symbol {
+    color: #bdc3c7;
+}
+
+.new-todo-container {
+    display: flex;
+    margin-top: 20px;
 }
 
 #newTodo {
     flex-grow: 1;
     padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ced4da;
+    font-size: 18px;
+    border: 1px solid #ddd;
     border-radius: 4px 0 0 4px;
+}
+
+#todoAddButton {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
 }
 
 button {
