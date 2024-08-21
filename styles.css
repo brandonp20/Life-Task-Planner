@@ -48,7 +48,7 @@ body, html {
     text-align: center;
     width: 750px;
     border: none;
-    background: none;
+    background: rgb(253, 253, 253);
     border-radius: 4px;
 }
 
@@ -94,7 +94,7 @@ body, html {
 .navigation {
     display: flex;
     margin-bottom: 10px;
-    justify-content: left;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -133,6 +133,11 @@ body, html {
     font-size: 16px;
     flex-grow: 1;
     border-radius: 4px;
+    background: rgb(253, 253, 253);
+}
+
+.planner-section {
+    box-shadow: 2px 2px 5px 2px rgba(0,0,0,.2);
 }
 
 h2 {
@@ -150,6 +155,37 @@ h2 {
 
 .todo-item-wrapper {
     margin-bottom: 10px;
+}
+
+.todo-item-wrapper.completed,
+.subitem.completed {
+    opacity: 0.6;
+}
+
+#toggleCompletedButton,
+.subitem-toggle {
+    margin-bottom: 10px;
+}
+
+.subitem-container {
+    margin-left: 20px;
+    border-left: 1px solid #ccc;
+    padding-left: 10px;
+}
+
+.hide-completed-subitems .subitem.completed {
+    display: none;
+}
+
+.toggle-subitems-btn {
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.subitem-container {
+    margin-left: 20px;
+    border-left: 1px solid #ccc;
+    padding-left: 10px;
 }
 
 .todo-main {
@@ -265,6 +301,20 @@ h2 {
 
 .completed .subitem-container .subitem-symbol {
     color: #bdc3c7;
+}
+
+.subitem.completed {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.subitem-buttons {
+    display: flex;
+    margin-left: auto;
+}
+
+.subitem-buttons button {
+    margin-left: 5px;
 }
 
 .new-todo-container {
