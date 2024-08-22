@@ -677,7 +677,7 @@ button:hover {
     margin: 15px 0; /* Changed to vertical margin only */
 }
 
-.signup-link {
+.signup-link, .forgot-password-link {
     font-size: 0.875rem; /* Changed to relative unit */
     color: #007bff;
     cursor: pointer;
