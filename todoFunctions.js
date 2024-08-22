@@ -71,17 +71,17 @@
             li.remove();
             initSubitemSortables();
             updateMainItemsVisibility();
-        });
+        }, 'delete-btn');
         deleteButton.classList.add('delete-btn');
     
         var checkButton = createButton("✓", function() {
             toggleItemCompletion(li);  // Pass 'li' as an argument here
-        });
+        }, 'check-btn');
         checkButton.classList.add('check-btn');
     
         var dueDateButton = createButton("🗓 ", function() {
             setDueDate(li);
-        });
+        }, 'due-date-btn');
         dueDateButton.classList.add('due-date-btn');
     
         buttonsDiv.appendChild(deleteButton);
@@ -204,17 +204,17 @@
             subitem.remove();
             initSubitemSortables();
             updateSubitemsVisibility(subitem.closest('.subitem-container'));
-        });
+        }, 'delete-btn');
         deleteButton.classList.add('delete-btn');
     
         var checkButton = createButton("✓", function() {
             toggleSubitemCompletion(subitem);
-        });
+        }, 'check-btn');
         checkButton.classList.add('check-btn');
     
         var dueDateButton = createButton("🗓", function() {
             setDueDate(subitem);
-        });
+        }, 'due-date-btn');
         dueDateButton.classList.add('due-date-btn');
     
         buttonsDiv.appendChild(deleteButton);
@@ -321,10 +321,17 @@
         }
     }
     
-    function createButton(text, onclick) {
+    function createButton(text, onclick, className) {
         var button = document.createElement("button");
         button.textContent = text;
         button.onclick = onclick;
+        button.classList.add('action-btn', className);
+        
+        if (className === 'due-date-btn') {
+            button.textContent = ""; // Remove text content for calendar icon
+            button.title = "Set due date"; // Add title for accessibility
+        }
+        
         return button;
     }
 

@@ -5,6 +5,7 @@ body, html {
     padding: 0;
     height: 100%;
     font-family: Arial, sans-serif;
+    background-color: #b9d8f7;
 }
 
 .container {
@@ -21,15 +22,15 @@ body, html {
     justify-content: space-between;
     align-items: center;
     padding: 10px 35px;
-    background-color: #f8f9fa;
+    background-color: #ffffff;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .login-button {
-    color: white;
+    color: black;
     font-size: 16px;
     border-radius: 5px;
-    background: #003c7d;
+    background: #b9d8f7;
 }
 
 .login-button:hover {
@@ -54,7 +55,7 @@ body, html {
     width: 750px;
     border: none;
     background: rgb(253, 253, 253);
-    border-radius: 4px;
+    border-radius: 5px;
 }
 
 .life-task-input:hover, .textbox:hover {
@@ -72,14 +73,15 @@ body, html {
     display: flex;
     flex-grow: 1;
     padding: 15px;
-    gap: 20px;
+    gap: 35px;
+    margin: 5px;
 }
 
 .left-side, .right-side {
     display: flex;
     flex-direction: column;
     width: 50%;
-    gap: 20px;
+    gap: 25px;
 }
 
 .planner-section, .todo-list-container {
@@ -88,7 +90,7 @@ body, html {
     flex-direction: column;
     flex: 1;
     padding: 15px;
-    background-color: #f8f9fa;
+    background-color: rgb(240, 248, 255);
     border-radius: 8px;
     box-shadow: 2px 2px 5px 2px rgba(0,0,0,.2);
 }
@@ -132,6 +134,7 @@ body, html {
     flex-grow: 1;
     background: rgb(253, 253, 253);
     border: none;
+    border-radius: 5px;
 }
 
 h2 {
@@ -145,7 +148,7 @@ h2 {
 
 .monthly-toggle {
     position: absolute;
-    right: 0.2%;
+    right: 0%;
     top: 50%;
     transform: translateY(+50%);
     transform: rotate(180deg);
@@ -181,6 +184,7 @@ h2 {
 
 .slide-out.active {
     right: 0;
+    background-color: rgb(240, 248, 255);
 }
 
 .annual-header-row {
@@ -218,6 +222,8 @@ h2 {
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     font-size: 18px;
     transition: background-color 0.3s, color 0.3s;
+    flex-grow: 0;
+    max-height: 1rem;
 }
 
 /* Actual Todo Item List */
@@ -225,7 +231,6 @@ h2 {
     flex-grow: 1;
     list-style-type: none;
     padding: 0;
-    margin-bottom: 20px;
 }
 
 /* Todo Item Styles */
@@ -237,7 +242,7 @@ h2 {
     flex-grow: 1;
     min-width: 0;
     margin-left: 10px;
-    /* Remove any existing overflow, white-space, or text-overflow properties */
+    font-size: 16px;
     overflow: visible;
     white-space: normal;
     word-break: break-word;  /* This allows long words to break */
@@ -245,10 +250,24 @@ h2 {
     max-width: 100%;  /* Ensure the text doesn't exceed its container */
 }
 
-.todo-buttons {
-    display: flex;
+.action-btn {
+    width: 30px;
+    height: 30px;
+    margin: 0 2px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    display: inline-flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    font-size: 18px; 
+    color: inherit;
+}
+
+.todo-buttons, .subitem-buttons {
+    display: inline-flex;
+    align-items: center;
 }
 
 .todo-button {
@@ -291,6 +310,7 @@ h2 {
 .subitem {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 8px 10px;
     margin-top: 5px;
     background-color: #f0f0f0;
@@ -343,10 +363,20 @@ h2 {
 }
 
 .due-date-btn {
-    color: gray;
     background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 15px;
+    height: 15px;
+    background-image: url('calendar-icon.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-size: 0; /* Hide any text content */
+    vertical-align: middle;
+    margin-left: 5px; /* Add some space between the button and other elements */
 }
-
 .due-date-btn.has-due-date {
     background-color: #ae1dbb;
     color: white;
@@ -386,7 +416,7 @@ h2 {
     align-items: center;
     cursor: pointer;
     padding: 10px;
-    background-color: #f0f0f0;
+    background-color: #cecece;
     border-radius: 5px;
     font-size: 14px;
     color:rgb(58, 58, 58);
@@ -408,6 +438,7 @@ h2 {
 }
 
 #completed-todo-item-list {
+    list-style-type: none;
     margin-top: 10px;
 }
 
