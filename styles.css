@@ -102,6 +102,81 @@ body, html {
     align-items: center;
 }
 
+.day-calendar-container, .week-calendar-container {
+    display: flex;
+    align-items: center;
+}
+
+.calendar-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.calendar-button:hover .calendar-icon {
+    opacity: 0.8;
+}
+
+.pikaday-custom {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding-bottom: 50px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.pikaday-custom .pika-button {
+    background: #f8f9fa;
+    color: #333;
+    border-radius: 0;
+    transition: background-color 0.2s ease;
+}
+
+.pikaday-custom .pika-button:hover {
+    background: #e9ecef;
+    color: #007bff;
+}
+
+.pikaday-custom .is-selected .pika-button {
+    background: #007bff;
+    color: #fff;
+    box-shadow: none;
+}
+
+.pikaday-custom .is-today .pika-button {
+    color: #007bff;
+}
+
+.pikaday-custom .pika-label {
+    background-color: #f8f9fa;
+}
+
+.pikaday-current-date-button {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.pikaday-current-date-button:hover {
+    background-color: #0056b3;
+}
+
 .nav-arrow {
     justify-content: left;
     background: none;
@@ -118,7 +193,7 @@ body, html {
 }
 
 .navigation h2 {
-    margin: 0;
+    margin: 0 10px 0 0;
 }
 
 .border {

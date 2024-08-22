@@ -54,6 +54,18 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('prevYear').addEventListener('click', () => dateFunctions.navigateYear(-1));
     document.getElementById('nextYear').addEventListener('click', () => dateFunctions.navigateYear(1));
 
+    document.getElementById('dayCalendarButton').addEventListener('click', () => dateFunctions.showDatePicker('day'));
+    document.getElementById('weekCalendarButton').addEventListener('click', () => dateFunctions.showDatePicker('week'));
+    
+    document.addEventListener('click', function(event) {
+        const picker = document.querySelector('.pikaday-custom');
+        const calendarButtons = [document.getElementById('dayCalendarButton'), document.getElementById('weekCalendarButton')];
+        
+        if (picker && !picker.contains(event.target) && !calendarButtons.some(button => button.contains(event.target))) {
+            dateFunctions.showDatePicker(null); // This will close the current picker
+        }
+    });
+    
     // Allow adding a todo by pressing Enter
     document.getElementById("new-todo-item-input").addEventListener("keypress", function(event) {
         if (event.key === "Enter") {

@@ -5,6 +5,7 @@
     let monthlyPlans = {};
     let quarterlyPlans = {};
     let yearlyPlans = {};
+    let picker = null;
 
     function navigateDay(delta) {
         currentDate.setDate(currentDate.getDate() + delta);
@@ -112,6 +113,88 @@
         };
     }
 
+    function showDatePicker(type) {
+        if (picker) {
+            picker.destroy();
+        }
+    
+        const button = document.getElementById(`${type}CalendarButton`);
+        const today = new Date();
+    
+        picker = new Pikaday({
+            field: button,
+            position: 'bottom right',
+            reposition: false,
+            container: document.body,
+            bound: false,
+            format: 'MM/DD/YYYY',
+            defaultDate: currentDate,
+            setDefaultDate: true,
+            onSelect: function(date) {
+                currentDate = date;
+                if (type === 'day') {
+                    updateDayLabel();
+                } else if (type === 'week') {
+                    // Adjust to the start of the week (Sunday)
+                    const dayOfWeek = date.getDay();
+                    date.setDate(date.getDate() - dayOfWeek);
+                    currentDate = date;
+                    updateWeekLabel();
+                }
+                this.destroy();
+                picker = null;
+            },
+            onClose: function() {
+                this.destroy();
+                picker = null;
+            },
+            disableDayFn: function(date) {
+                // For weekly plan, only enable Sundays
+                if (type === 'week') {
+                    return date.getDay() !== 0;
+                }
+                return false;
+            },
+            onRender: function() {
+                const calendarContainer = this.el;
+                let currentDateButton = calendarContainer.querySelector('.pikaday-current-date-button');
+                
+                if (!currentDateButton) {
+                    currentDateButton = document.createElement('button');
+                    currentDateButton.classList.add('pikaday-current-date-button');
+                    currentDateButton.innerHTML = 'Current Date';
+                    currentDateButton.onclick = function() {
+                        const newDate = new Date();
+                        if (type === 'week') {
+                            const dayOfWeek = newDate.getDay();
+                            newDate.setDate(newDate.getDate() - dayOfWeek);
+                        }
+                        currentDate = newDate;
+                        if (type === 'day') {
+                            updateDayLabel();
+                        } else if (type === 'week') {
+                            updateWeekLabel();
+                        }
+                        picker.destroy();
+                        picker = null;
+                    };
+                    calendarContainer.appendChild(currentDateButton);
+                }
+            }
+        });
+    
+        // Position the picker
+        picker.el.style.position = 'fixed';
+        picker.el.style.top = `${button.offsetTop + button.offsetHeight}px`;
+        picker.el.style.left = `${button.offsetLeft}px`;
+        picker.el.style.zIndex = '1000';
+    
+        // Add custom class for styling
+        picker.el.classList.add('pikaday-custom');
+    
+        picker.show();
+    }
+
     window.dateFunctions = {
         navigateDay: navigateDay,
         navigateWeek: navigateWeek,
@@ -122,6 +205,7 @@
         updateWeekLabel: updateWeekLabel,
         updateMonthLabel: updateMonthLabel,
         updateQuarterLabel: updateQuarterLabel,
-        updateYearLabel: updateYearLabel
+        updateYearLabel: updateYearLabel,
+        showDatePicker: showDatePicker
     };
 })();

@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perspective Planner</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -26,7 +23,12 @@
                 <div class="planner-section">
                     <div class="navigation">
                         <button id="prevWeek" class="nav-arrow">◀</button>
+                        <div class="week-calendar-container">
                         <h2 id="weekLabel">Weekly Plan</h2>
+                            <button id="weekCalendarButton" class="calendar-button" title="Set date">
+                                <img src="calendar-icon.svg" alt="Calendar" class="calendar-icon">
+                            </button>
+                        </div>
                         <button id="nextWeek" class="nav-arrow">▶</button>
                     </div>
                     <textarea class="textbox" id="weeklyPlanner"></textarea>
@@ -35,7 +37,12 @@
                 <div class="planner-section">
                     <div class="navigation">
                         <button id="prevDay" class="nav-arrow">◀</button>
-                        <h2 id="dayLabel">Daily Plan</h2>
+                        <div class="day-calendar-container">
+                            <h2 id="dayLabel">Daily Plan</h2>
+                            <button id="dayCalendarButton" class="calendar-button">
+                                <img src="calendar-icon.svg" alt="Calendar" class="calendar-icon">
+                            </button>
+                        </div>
                         <button id="nextDay" class="nav-arrow">▶</button>
                     </div>
                     <textarea class="textbox" id="dailyPlanner"></textarea>
